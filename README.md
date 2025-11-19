@@ -204,3 +204,66 @@ def main():
 
 if __name__ == "__main__":
     main()
+# ==========================================
+# Alpha Pruning
+# ==========================================
+8. Alphs Beta Puring
+MAX, MIN = 1000, -1000
+def minimax(depth, nodeIndex, maximizingPlayer, values, alpha, beta):
+    if depth == 3:
+        return values[nodeIndex]
+    if maximizingPlayer:
+        best = MIN
+        for i in range(0, 2):
+            val = minimax(depth + 1, nodeIndex * 2 + i, False, values, alpha, beta)
+            best = max(best, val)
+            alpha = max(alpha, best)
+            if beta <= alpha:
+                break
+        return best
+    else:
+        best = MAX
+        for i in range(0, 2):
+            val = minimax(depth + 1, nodeIndex * 2 + i, True, values, alpha, beta)
+            best = min(best, val)
+            beta = min(beta, best)
+            if beta <= alpha:
+                break
+        return best
+if __name__ == "__main__":
+    values = [3, 5, 6, 9, 1, 2, 0, -1]
+    print("The optimal value is:", minimax(0, 0, True, values, MIN, MAX))
+
+# ==========================================
+# Monkey Banana
+# ==========================================
+i = 0
+def Monkey_go_box(x, y):
+    global i
+    i = i + 1
+    print('Step', i, ': Monkey at', x, 'goes to', y)
+def Monkey_move_box(x, y):
+    global i
+    i = i + 1
+    print('Step', i, ': Monkey takes the box from', x, 'and moves it to', y)
+def Monkey_on_box():
+    global i
+    i = i + 1
+    print('Step', i, ': Monkey climbs up the box')
+def Monkey_get_banana():
+    global i
+    i = i + 1
+    print('Step', i, ': Monkey picks the banana')
+print("Enter monkey location:")
+monkey = input().strip()
+print("Enter banana location:")
+banana = input().strip()
+print("Enter box location:")
+box = input().strip()
+print('\nThe steps are as follows:')
+Monkey_go_box(monkey, box)
+Monkey_move_box(box, banana)
+Monkey_on_box()
+Monkey_get_banana()
+print('\nSuccess! Monkey got the banana!')
+
